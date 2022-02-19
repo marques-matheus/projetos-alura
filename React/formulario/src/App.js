@@ -11,7 +11,7 @@ function App() {
       <Typography variant="h3" align="center" component="h1">
         Formulário de Cadastro
       </Typography>
-      <FormularioCadastro onSubmit={onSubmit} cpfValido={cpfValido} />
+      <FormularioCadastro aoEnviar={onSubmit} cpfValido={cpfValido} />
     </Container>
   );
 }

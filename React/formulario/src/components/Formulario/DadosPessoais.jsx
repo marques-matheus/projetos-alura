@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Switch, TextField, FormControlLabel } from "@material-ui/core";
 
-function DadosPessoais({ onSubmit, cpfValido }) {
+function DadosPessoais({ aoEnviar, cpfValido }) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -12,7 +12,7 @@ function DadosPessoais({ onSubmit, cpfValido }) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSubmit({ nome, sobrenome, cpf, promocoes, novidades });
+        aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
       }}
     >
       <TextField
@@ -83,7 +83,7 @@ function DadosPessoais({ onSubmit, cpfValido }) {
       />
 
       <Button variant="contained" color="primary" type="submit">
-        Cadastrar
+        Próximo
       </Button>
     </form>
   );
