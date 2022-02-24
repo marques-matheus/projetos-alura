@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import { Button, Switch, TextField, FormControlLabel } from "@material-ui/core";
 
-function DadosPessoais({ aoEnviar, cpfValido }) {
+function DadosPessoais({ aoEnviar, validacoes }) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(true);
-  const [erros, setErros] = useState({cpf: { valido:true, texto: "" }});
+  const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } });
+
+  function validarCampos(event){
+    const { name, value } = event.target;
+    const novoestado = { ...erros}
+    novoestado[name]= validacoes[name](value);
+    setErros( novoestado);
+    console.log(novoestado)
+  }
+
   return (
     <form
       onSubmit={(event) => {
@@ -41,16 +50,14 @@ function DadosPessoais({ aoEnviar, cpfValido }) {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
-        onBlur={(event) => {
-          const ehValido = cpfValido(cpf);
-         setErros({cpf: ehValido})
-        }}
+        onBlur={validarCampos}
+        name="cpf"
         error={!erros.cpf.valido}
-        helperText={erros.cpf.texto}
+        helperText={erros.cpf.texto} 
         margin="normal"
         fullWidth
         variant="outlined"
-        id="cpf"
+        id="CPF"
         label="CPF"
         required
       />
