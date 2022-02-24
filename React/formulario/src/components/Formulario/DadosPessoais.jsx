@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Switch, TextField, FormControlLabel } from "@material-ui/core";
+import validacoesCadastro from "../../Contexts/ValidacoesCadastro";
 
-function DadosPessoais({ aoEnviar, validacoes }) {
+function DadosPessoais({ aoEnviar }) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -9,19 +10,31 @@ function DadosPessoais({ aoEnviar, validacoes }) {
   const [novidades, setNovidades] = useState(true);
   const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } });
 
-  function validarCampos(event){
+  const validacoes = useContext(validacoesCadastro);
+  function validarCampos(event) {
     const { name, value } = event.target;
-    const novoestado = { ...erros}
-    novoestado[name]= validacoes[name](value);
-    setErros( novoestado);
-    console.log(novoestado)
+    const novoestado = { ...erros };
+    novoestado[name] = validacoes[name](value);
+    setErros(novoestado);
+    console.log(novoestado);
+  }
+
+  function possoEnviar() {
+    for (let campo in erros) {
+      if (!erros[campo].valido) {
+        return false;
+      }
+    }
+    return true;
   }
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
+        if (possoEnviar()) {
+          aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
+        }
       }}
     >
       <TextField
@@ -33,6 +46,7 @@ function DadosPessoais({ aoEnviar, validacoes }) {
         variant="outlined"
         id="nome"
         label="Nome"
+        name="nome"
         required
       />
       <TextField
@@ -43,6 +57,7 @@ function DadosPessoais({ aoEnviar, validacoes }) {
         fullWidth
         variant="outlined"
         id="sobrenome"
+        name="sobrenome"
         label="Sobrenome"
         required
       />
@@ -53,7 +68,7 @@ function DadosPessoais({ aoEnviar, validacoes }) {
         onBlur={validarCampos}
         name="cpf"
         error={!erros.cpf.valido}
-        helperText={erros.cpf.texto} 
+        helperText={erros.cpf.texto}
         margin="normal"
         fullWidth
         variant="outlined"
