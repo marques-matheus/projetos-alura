@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import privado from "../../assets/images/privado.svg";
 import olho_icone from "../../assets/images/olho.svg";
 import dinheiro from "../../assets/images/dinheiro.svg";
+import { Icone } from "../UI";
 
 const Conta = () => {
   const [toggleState, untoggle] = useState(true);
@@ -11,13 +13,17 @@ const Conta = () => {
     untoggle((toggleState) => !toggleState);
   };
 
+  const IconeMargin = styled(Icone)`
+    margin-top: 2px;
+  `;
+
   return (
     <div className="box">
       <h2>Conta</h2>
       <div style={{ fontSize: "26px", padding: "20px 0" }}>
         Saldo disponível{" "}
         <span>
-          <img className="imagem-icone" src={dinheiro} alt="Ícone Saldo" />
+          <Icone src={dinheiro} alt="Ícone Saldo" />
         </span>
         {toggleState ? (
           <div className="saldo">
@@ -27,9 +33,7 @@ const Conta = () => {
       </div>
 
       <button className="btn" onClick={toggleHandler}>
-        <img
-          style={{ marginTop: "2px" }}
-          className="imagem-icone"
+        <IconeMargin
           src={toggleState ? privado : olho_icone}
           alt="Privacidade do Saldo"
         />
