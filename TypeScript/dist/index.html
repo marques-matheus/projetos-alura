@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
   </head>
 
-  <body class="container">
-    <h1 class="text-center">Negociações</h1>
+  <body class="container bg-dark">
+    <h1 class="text-center text-info">Negociações</h1>
 
     <div id="mensagemView"></div>
 
     <form class="form">
       <div class="form-group">
-        <label for="data">Data</label>
+        <label for="data" class="text-info">Data</label>
         <input type="date" id="data" class="form-control" required autofocus />
       </div>
 
       <div class="form-group">
-        <label for="quantidade">Quantidade</label>
+        <label for="quantidade  " class="text-info">Quantidade</label>
         <input
           type="number"
           min="1"
@@ -32,7 +32,7 @@
       </div>
 
       <div class="form-group">
-        <label for="valor">Valor</label>
+        <label for="valor" class="text-info">Valor</label>
         <input
           id="valor"
           type="number"
@@ -44,10 +44,13 @@
         />
       </div>
 
-      <button class="btn btn-primary" type="submit">Incluir</button>
+      <button class="btn btn-info" type="submit">Incluir</button>
     </form>
     <br />
     <br />
+    <div id="negociacoesView">
+      
+    </div>
     <script src="js/app.js" type="module"></script>
   </body>
 </html>
