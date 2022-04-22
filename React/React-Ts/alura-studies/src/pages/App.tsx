@@ -1,13 +1,15 @@
 import React from "react";
+import Cronometro from "../components/cronometro";
 
 import Formulario from "../components/form";
 import Lista from "../components/lista";
-import './style.scss'
+import style from "./App.module.scss";
 
 function App() {
   return (
-    <div className="AppStyle">
+    <div className={style.AppStyle}>
       <Formulario />
+      <Cronometro />
       <Lista />
     </div>
   );
