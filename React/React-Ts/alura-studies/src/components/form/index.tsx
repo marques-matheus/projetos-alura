@@ -1,27 +1,41 @@
 import React, { useState } from "react";
-import { Itarefa } from "../../types/Itarefa";
+
 import Botao from "../botao";
 import style from "./form.module.scss";
+import {v4 as uuidv4} from 'uuid'
 
- interface Props {
-  setTarefas: React.Dispatch<React.SetStateAction<{
-    tarefa: string;
-    tempo: string;
-}[]>>
- }
+interface Props {
+  setTarefas: React.Dispatch<
+    React.SetStateAction<
+      {
+        tarefa: string;
+        tempo: string;
+        selecionado: boolean,
+        completado: boolean,
+        id: string
 
-function Formulario({setTarefas}: Props) {
+      }[]
+    >
+  >;
+}
+
+function Formulario({ setTarefas }: Props) {
   const [tarefa, setTarefa] = useState("");
   const [tempo, setTempo] = useState("00:00");
 
   const adicionarTarefa = () => {
-    setTarefas(tarefasAntigas => [...tarefasAntigas, {
-      tarefa, 
-      tempo
-
-    }]);
-    setTarefa('')
-    setTempo('00:00')
+    setTarefas((tarefasAntigas) => [
+      ...tarefasAntigas,
+      {
+        tarefa,
+        tempo,
+        selecionado: false,
+        completado: false,
+        id: uuidv4()
+      },
+    ]);
+    setTarefa("");
+    setTempo("00:00");
   };
   return (
     <form
