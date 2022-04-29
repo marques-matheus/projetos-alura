@@ -1,10 +1,17 @@
 import React from "react";
 import style from "./botao.module.scss";
 
-function Botao() {
+
+interface Props{
+  type?: "button" | "submit" | "reset" | undefined,
+  onClick?: ()=> void,
+  children: React.ReactNode
+}
+
+function Botao({onClick, type, children}: Props) {
   return (
     <>
-      <button className={style.botao}>Salvar</button>
+      <button className={style.botao}>{children}</button>
     </>
   );
 }

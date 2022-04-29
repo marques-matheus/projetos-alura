@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import { Itarefa } from "../../types/Itarefa";
 import Botao from "../botao";
 import style from "./form.module.scss";
-function Formulario() {
+
+ interface Props {
+  setTarefas: React.Dispatch<React.SetStateAction<{
+    tarefa: string;
+    tempo: string;
+}[]>>
+ }
+
+function Formulario({setTarefas}: Props) {
+  const [tarefa, setTarefa] = useState("");
+  const [tempo, setTempo] = useState("00:00");
+
+  const adicionarTarefa = () => {
+    setTarefas(tarefasAntigas => [...tarefasAntigas, {
+      tarefa, 
+      tempo
+
+    }]);
+    setTarefa('')
+    setTempo('00:00')
+  };
   return (
-    <form className={style.novaTarefa}>
+    <form
+      className={style.novaTarefa}
+      onSubmit={(event) => {
+        event.preventDefault();
+        adicionarTarefa();
+      }}
+    >
       <div className={style.inputContainer}>
         <label htmlFor="tarefa">Adicione um novo estudo</label>
         <input
+          value={tarefa}
+          onChange={(event) => {
+            setTarefa(event.target.value);
+          }}
           type="text"
           name="tarefa"
           id="tarefa"
@@ -17,6 +48,10 @@ function Formulario() {
       <div className={style.inputContainer}>
         <label htmlFor="tempo">Tempo</label>
         <input
+          value={tempo}
+          onChange={(event) => {
+            setTempo(event.target.value);
+          }}
           type="time"
           step="1"
           name="tempo"
@@ -26,8 +61,7 @@ function Formulario() {
           required
         />
       </div>
-
-      <Botao />
+      <Botao type="submit"> Adicionar </Botao>
     </form>
   );
 }
