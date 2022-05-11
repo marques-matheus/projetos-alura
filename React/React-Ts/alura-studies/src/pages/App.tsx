@@ -13,7 +13,7 @@ function App() {
   const selecionaTarefa = (tarefaSelecionada: Itarefa) => {
     setSelecionado(tarefaSelecionada);
     setTarefas((tarefasAnteriores) =>
-      tarefasAnteriores.map(tarefa => ({
+      tarefasAnteriores.map((tarefa) => ({
         ...tarefa,
         selecionado: tarefa.id === tarefaSelecionada.id ? true : false,
       }))
@@ -23,7 +23,7 @@ function App() {
   return (
     <div className={style.AppStyle}>
       <Formulario setTarefas={setTarefas} />
-      <Cronometro />
+      <Cronometro selecionado={selecionado} />
       <Lista tarefas={tarefas} selecionaTarefa={selecionaTarefa} />
     </div>
   );
