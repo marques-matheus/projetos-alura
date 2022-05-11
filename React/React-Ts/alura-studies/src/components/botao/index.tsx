@@ -11,7 +11,7 @@ interface Props{
 function Botao({onClick, type, children}: Props) {
   return (
     <>
-      <button className={style.botao}>{children}</button>
+      <button onClick={onClick} className={style.botao}>{children}</button>
     </>
   );
 }
